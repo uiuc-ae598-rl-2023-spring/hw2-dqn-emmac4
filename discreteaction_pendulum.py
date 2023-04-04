@@ -2,7 +2,7 @@ import numpy as np
 import scipy.integrate
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
+import torch
 
 class Pendulum():
     def __init__(self, rg=None, num_actions=31):
@@ -115,7 +115,7 @@ class Pendulum():
         s_traj = [s]
         done = False
         while not done:
-            (s, r, done) = self.step(policy(s))
+            (s, r, done) = self.step(torch.argmax(policy(torch.tensor(s).float())))
             s_traj.append(s)
 
         fig = plt.figure(figsize=(5, 4))
